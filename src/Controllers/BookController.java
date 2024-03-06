@@ -47,6 +47,7 @@ public class BookController {
                     Title = sc.nextLine();
                     System.out.printf("Ingrese El ISBN:  ");
                     ISBN = sc.nextLine();
+                    sc.nextLine();
                     System.out.println("> > Fecha < < ");
                     System.out.printf("Ingrese El Dia:  ");
                     auxn = sc.nextInt();

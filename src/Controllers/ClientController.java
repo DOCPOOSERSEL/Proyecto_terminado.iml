@@ -19,7 +19,7 @@ public class ClientController {
                 if ( pildora > 4 || pildora <= 0){
                     System.out.println("Nah uh");
                 }
-            }while(pildora > 3 || pildora <= 0);
+            }while(pildora > 4 || pildora <= 0);
 
             switch (pildora){
                 case 1: /*Aqui te mete a las transacciones*/

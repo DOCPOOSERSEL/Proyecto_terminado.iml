@@ -234,7 +234,7 @@ public class MenuHolder {
         System.out.printf(" %-10s \n","-----------------------");
         System.out.printf("%-14s\n","Clientes para transacciones");
         System.out.printf(" %-10s \n","-----------------------");
-        for (int i = 0; i< ClientRepository.clientArrayList.size(); i++ ){
+        for (int i = 0; i<ClientRepository.clientArrayList.size(); i++ ){
             System.out.printf("|%-2s.- ",i+1);
             System.out.printf("%-12s |\n",ClientRepository.clientArrayList.get(i).getCLientName());
         }
