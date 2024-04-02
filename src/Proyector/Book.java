@@ -8,7 +8,8 @@ public class Book {
     private Date publishDate = new Date();
     private Boolean isAvailable;
 
-    public void bookCreator(String ISBN, String title, String author, Date publishDate, Boolean isAvailable) {
+
+    public void Book(String ISBN, String title, String author, Date publishDate, Boolean isAvailable) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;

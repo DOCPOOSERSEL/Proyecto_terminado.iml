@@ -66,14 +66,14 @@ public class TransaccionTransaccions {
         System.out.printf("------------------------------------------------------------------------------------%n");
         System.out.printf("                                Tramites (Fecha)                       %n");
         System.out.printf("------------------------------------------------------------------------------------%n");
-        System.out.printf("| %-6s | %-10s | %-30s | %-4s | %-14s |%n","Puesto", "Type", "Book", "Fecha", "ID");
+        System.out.printf("| %-6s | %-10s | %-30s | %-6s | %-14s |%n","Puesto", "Type", "Book", "Fecha", "ID");
         System.out.printf("------------------------------------------------------------------------------------%n");
         int comparacionBottom,comparacionTop;
         for (int i = 0; i < Transactionrepository.transactionArrayList.size(); i++) {
             comparacionBottom = bottomDate.compareTo(Transactionrepository.transactionArrayList.get(i).getBorrowDate());
             comparacionTop = topDate.compareTo(Transactionrepository.transactionArrayList.get(i).getBorrowDate());
             if (comparacionBottom>0 && comparacionTop<0){
-                System.out.printf("| %-6s | %-10s | %-30s | %-4s | %-14s |%n", i+1, Transactionrepository.transactionArrayList.get(i).getType(), Transactionrepository.transactionArrayList.get(i).getBorrowedBook().getTitle(), Transactionrepository.transactionArrayList.get(i).getBorrowDate(), Transactionrepository.transactionArrayList.get(i).getTransactionID());
+                System.out.printf("| %-6s | %-10s | %-30s | %-2s/%-2s/%-2s | %-14s |%n", i+1, Transactionrepository.transactionArrayList.get(i).getType(), Transactionrepository.transactionArrayList.get(i).getBorrowedBook().getTitle(), Transactionrepository.transactionArrayList.get(i).getBorrowDate().getDay(),Transactionrepository.transactionArrayList.get(i).getBorrowDate().getMonth(),Transactionrepository.transactionArrayList.get(i).getBorrowDate().getYear(), Transactionrepository.transactionArrayList.get(i).getTransactionID());
                 System.out.printf("----------------------------------------------------------------------------%n");
             }
         }
@@ -83,7 +83,7 @@ public class TransaccionTransaccions {
         System.out.printf("---------------------------------------------------------------------------------%n");
         System.out.printf("                                Tramites   (Libro)                     %n");
         System.out.printf("---------------------------------------------------------------------------------%n");
-        System.out.printf("| %-6s | %-10s | %-30s | %-6s | %-13s |%n","Puesto", "Type", "Book", "Fecha", "ID");
+        System.out.printf("| %-6s | %-10s | %-30s | %-6s | %-14s |%n","Puesto", "Type", "Book", "Fecha", "ID");
         System.out.printf("----------------------------------------------------------------------------------%n");
         for (int i = 0; i < Transactionrepository.transactionArrayList.size(); i++) {
             if (BookRepository.libraryBooks.get(indice).getTitle() == Transactionrepository.transactionArrayList.get(i).getBorrowedBook().getTitle()){

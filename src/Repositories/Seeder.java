@@ -1,7 +1,5 @@
 package Repositories;
 import Proyector.*;
-import Controllers.*;
-import Auxiliares.*;
 
 import java.util.Date;
 
@@ -15,7 +13,7 @@ public class Seeder {
         //Libro
         Book libro1 = new Book();
         Date bookDate1 = new Date(2005,3,10);
-        libro1.bookCreator("456-456","Bacas Baqueras","Sergio",bookDate1,true);
+        libro1.Book("456-456","Bacas Baqueras","Sergio",bookDate1,true);
         author1.authorBooks.add(libro1);
         //Meterlos a su repositorio
         BookRepository.libraryBooks.add(libro1);
@@ -28,7 +26,7 @@ public class Seeder {
         //Libro2
         Book libro2 = new Book();
         Date bookDate2 = new Date(2000,9,25);
-        libro2.bookCreator("777-776","Biblia 2: El regreso de jesus","Martin",bookDate2,true);
+        libro2.Book("777-776","Biblia 2: El regreso de jesus","Martin",bookDate2,true);
         author2.authorBooks.add(libro2);
         //Meterlos a su repositorio2
         BookRepository.libraryBooks.add(libro2);
@@ -41,7 +39,7 @@ public class Seeder {
         //Libro3
         Book libro3 = new Book();
         Date bookDate3 = new Date(2023,9,7);
-        libro3.bookCreator("326-556","Manual Para Romper Una Tele","Guillermo",bookDate3,true);
+        libro3.Book("326-556","Manual Para Romper Una Tele","Guillermo",bookDate3,true);
         author3.authorBooks.add(libro3);
         //Meterlos a su repositorio3
         BookRepository.libraryBooks.add(libro3);

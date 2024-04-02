@@ -8,6 +8,7 @@ public class BookController {
     public static Scanner sc = new Scanner(System.in);
     public static int pildora,auxn,indice=0;
     public static String auxs;
+
     public static void bookMetodo() {
         do {
             do { //Menu Principal de libros
@@ -62,7 +63,7 @@ public class BookController {
                     sc.nextLine();
                     publishedDate.setYear(auxn);
                     Boolean available=true;
-                    bok.bookCreator(ISBN,Title,Author,publishedDate,available);
+                    bok.Book(ISBN,Title,Author,publishedDate,available);
                     AuthorRepository.authorArrayList.get(indexAuthor).authorBooks.add(bok);
                     BookRepository.libraryBooks.add(bok);
                     break;
