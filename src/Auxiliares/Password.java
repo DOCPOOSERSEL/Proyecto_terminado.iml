@@ -2,7 +2,7 @@ package Auxiliares;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 public class Password {
-    public String hashString(String input) {
+    public static String hashString(String input) {
         try {
             // Create MessageDigest instance for SHA-256
             MessageDigest md = MessageDigest.getInstance("SHA-256");

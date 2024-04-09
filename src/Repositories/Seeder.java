@@ -1,4 +1,5 @@
 package Repositories;
+import Auxiliares.Password;
 import Proyector.*;
 
 import java.util.Date;
@@ -48,20 +49,20 @@ public class Seeder {
 
 
         //Cliente1
-        Client client1 = new Client();
+        User client1 = new User();
         Date clientDate1 = new Date(2005,5,8);
-        client1.setProfileClient("Candido","Ortega",clientDate1);
-        ClientRepository.clientArrayList.add(client1);
+        client1.setProfileUser("Candido","Ortega",clientDate1, Password.hashString("poomaster"));
+        UserRepository.userArrayList.add(client1);
         //Cliente2
-        Client client2 = new Client();
+        User client2 = new User();
         Date clientDate2 = new Date(1456,9,13);
-        client2.setProfileClient("John","Cena",clientDate2);
-        ClientRepository.clientArrayList.add(client2);
+        client2.setProfileUser("John","Cena",clientDate2,Password.hashString("nomepuedesver"));
+        UserRepository.userArrayList.add(client2);
         //Cliente3
-        Client client3 = new Client();
+        User client3 = new User();
         Date clientDate3 = new Date(1999,12,29);
-        client3.setProfileClient("Lolita","Ayala",clientDate3);
-        ClientRepository.clientArrayList.add(client3);
+        client3.setProfileUser("Lolita","Ayala",clientDate3,Password.hashString("silvarrera"));
+        UserRepository.userArrayList.add(client3);
 
     }
 }

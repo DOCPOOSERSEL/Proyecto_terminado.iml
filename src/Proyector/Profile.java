@@ -3,12 +3,14 @@ import java.util.Date;
 public class Profile  {
     private String profileName;
     private String profileLastName;
+
     private Date profileDate = new Date();
 
-    public void setProfile(String skibiname, String skibidiapellido, Date skibidifecha) {
-        this.profileName = skibiname;
-        this.profileLastName = skibidiapellido;
-        profileDate = skibidifecha;
+    public void setProfile(String name, String apellido, Date fecha)
+     {
+        this.profileName = name;
+        this.profileLastName = apellido;
+        this.profileDate = fecha;
     }
 
     // Skibidi getters

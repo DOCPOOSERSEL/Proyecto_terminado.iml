@@ -2,7 +2,7 @@ package Auxiliares;
 
 import Repositories.AuthorRepository;
 import Repositories.BookRepository;
-import Repositories.ClientRepository;
+import Repositories.UserRepository;
 
 public class MenuHolder {
     //Menus de Inicio
@@ -140,10 +140,10 @@ public class MenuHolder {
         System.out.printf(">> ");
     }
 
-    //Client menus
+    //User menus
     public static void menuInicioClient(){
         System.out.println("-------------------------");
-        System.out.printf("| %-20s |\n","Menu de CLiente");
+        System.out.printf("| %-20s |\n","Menu de User");
         System.out.println("-------------------------");
         System.out.printf("| %-20s |\n","1.-Transacciones");
         System.out.printf("| %-20s |\n","2.-Creacion/Edicion");
@@ -156,13 +156,13 @@ public class MenuHolder {
         System.out.println("-------------------------");
         System.out.printf("| %-20s |\n","Menu Creacion/Edicion");
         System.out.println("------------------------");
-        System.out.printf("| %-20s |\n","1.-Crear Cliente");
-        System.out.printf("| %-20s |\n","2.-Editar Cliente");
+        System.out.printf("| %-20s |\n","1.-Crear Usuario");
+        System.out.printf("| %-20s |\n","2.-Editar Usuario");
         System.out.printf("| %-20s |\n","3.-Regresar");
         System.out.println("------------------------");
         System.out.printf(">> ");
     }
-    public static void menuEnseñarclientesConLibros(){
+    public static void menuEnseñarClientesConLibros(){
         System.out.println("______________________________________________________");
         System.out.printf("| %-50s |\n", "clientes");
         System.out.println("______________________________________________________");
@@ -170,15 +170,15 @@ public class MenuHolder {
         System.out.printf("| %-10s |", "Apellido");
         System.out.printf("| %-23s |\n", "Fecha de nacimiento");
         System.out.println("______________________________________________________");
-        for (int i=0; i< ClientRepository.clientArrayList.size()  ; i++){
-            System.out.printf( "|%-2s %-10s",i+1 ,ClientRepository.clientArrayList.get(i).getCLientName());
-            System.out.printf(" %-10s  |",ClientRepository.clientArrayList.get(i).getCLientLastName());
-            System.out.printf("| %-7s/%-7s7%7s |\n",ClientRepository.clientArrayList.get(i).getCLientDateOfBirth().getDate(),ClientRepository.clientArrayList.get(i).getCLientDateOfBirth().getMonth(),ClientRepository.clientArrayList.get(i).getCLientDateOfBirth().getYear());
-            if (ClientRepository.clientArrayList.get(i).borrowedBooks.isEmpty()){
+        for (int i = 0; i< UserRepository.userArrayList.size()  ; i++){
+            System.out.printf( "|%-2s %-10s",i+1 , UserRepository.userArrayList.get(i).getUserName());
+            System.out.printf(" %-10s  |", UserRepository.userArrayList.get(i).getUserLastName());
+            System.out.printf("| %-7s/%-7s7%7s |\n", UserRepository.userArrayList.get(i).getUserDateOfBirth().getDate(), UserRepository.userArrayList.get(i).getUserDateOfBirth().getMonth(), UserRepository.userArrayList.get(i).getUserDateOfBirth().getYear());
+            if (UserRepository.userArrayList.get(i).borrowedBooks.isEmpty()){
                 System.out.println("______________________________________________________");
             }else {
-                for (int j = 0; j < ClientRepository.clientArrayList.get(i).borrowedBooks.size() ; j++) {
-                    System.out.printf("|%-2s %-41s |\n",j+1, ClientRepository.clientArrayList.get(i).borrowedBooks.get(j).getTitle());
+                for (int j = 0; j < UserRepository.userArrayList.get(i).borrowedBooks.size() ; j++) {
+                    System.out.printf("|%-2s %-41s |\n",j+1, UserRepository.userArrayList.get(i).borrowedBooks.get(j).getTitle());
                 }
                 System.out.println("_____________________________________________________");
             }
@@ -188,9 +188,9 @@ public class MenuHolder {
     public static void menuParaSeleccionarUnClienteParaEditar(){
         System.out.println("> > Client Editor < <");
         System.out.printf(" %-10s \n","-------------------");
-        for (int i = 0; i< ClientRepository.clientArrayList.size(); i++ ){
+        for (int i = 0; i< UserRepository.userArrayList.size(); i++ ){
             System.out.printf("|%-2s.- ",i+1);
-            System.out.printf("%-8s |\n",ClientRepository.clientArrayList.get(i).getCLientName());
+            System.out.printf("%-8s |\n", UserRepository.userArrayList.get(i).getUserName());
         }
         System.out.printf(" %-10s \n","-------------------");
     }
@@ -234,9 +234,9 @@ public class MenuHolder {
         System.out.printf(" %-10s \n","-----------------------");
         System.out.printf("%-14s\n","Clientes para transacciones");
         System.out.printf(" %-10s \n","-----------------------");
-        for (int i = 0; i<ClientRepository.clientArrayList.size(); i++ ){
+        for (int i = 0; i< UserRepository.userArrayList.size(); i++ ){
             System.out.printf("|%-2s.- ",i+1);
-            System.out.printf("%-12s |\n",ClientRepository.clientArrayList.get(i).getCLientName());
+            System.out.printf("%-12s |\n", UserRepository.userArrayList.get(i).getUserName());
         }
         System.out.printf(" %-10s \n","-----------------------");
     }
@@ -249,6 +249,85 @@ public class MenuHolder {
         System.out.printf("| %-20s |\n","3.-Por Libro");
         System.out.printf("| %-20s |\n","4.-Regresar");
         System.out.println("------------------------");
+        System.out.printf(">> ");
+    }
+
+    //Menu de LogIn
+    public static void menuDeinicioDeSeccion(){
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","Menu de Inicio de seccion");
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","1.-Administrador");
+        System.out.printf("| %-15s |\n","2.-Usuario");
+        System.out.printf("| %-15s |\n","3.-Finalizar");
+        System.out.println("-------------------");
+        System.out.printf(">> ");
+    }
+    public static void menuDeSeleccionDeAdmin(){
+        System.out.printf(" %-10s \n","-----------------------");
+        System.out.printf("%-14s\n","Administradores");
+        System.out.printf(" %-10s \n","-----------------------");
+        for (int i = 0; i< UserRepository.adminsArrayList.size(); i++ ){
+            System.out.printf("|%-2s.- ",i+1);
+            System.out.printf("%-12s |\n", UserRepository.adminsArrayList.get(i).getUserName());
+        }
+        System.out.printf(" %-10s \n","-----------------------");
+        System.out.print(">> ");
+    }
+    public static void menuDeSeleccionDeUser(){
+        System.out.printf(" %-10s \n","-----------------------");
+        System.out.printf("%-14s\n","Users");
+        System.out.printf(" %-10s \n","-----------------------");
+        for (int i = 0; i< UserRepository.userArrayList.size(); i++ ){
+            System.out.printf("|%-2s.- ",i+1);
+            System.out.printf("%-12s |\n", UserRepository.userArrayList.get(i).getUserName());
+        }
+        System.out.printf(" %-10s \n","-----------------------");
+        System.out.print(">> ");
+    }
+//Admins
+    public static void menuDeCreacionDeAdmins(){
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","Menu de Administracion");
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","1.-Crear");
+        System.out.printf("| %-15s |\n","2.-Editar");
+        System.out.printf("| %-15s |\n","3.-Eliminar");
+        System.out.printf("| %-15s |\n","4.-Salir");
+        System.out.println("-------------------");
+        System.out.printf(">> ");
+    }
+    public static void menuDeEdicionAdmin(){
+        System.out.println("-------------------------");
+        System.out.printf("| %-20s |\n","Menu de Edicion");
+        System.out.println("------------------------");
+        System.out.printf("| %-20s |\n","1.-Nombre");
+        System.out.printf("| %-20s |\n","2.-Apellido");
+        System.out.printf("| %-20s |\n","3.-Fecha");
+        System.out.printf("| %-20s |\n","4.-Permisos");
+        System.out.printf("| %-20s |\n","5.-Regresar");
+        System.out.println("------------------------");
+        System.out.printf(">> ");
+    }
+    //Menu de users
+    public static void menuMostrarOpcionesUsers(){
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","Biblioteca");
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","1.-Ver Libros");
+        System.out.printf("| %-15s |\n","2.-Ver Transacciones");
+        System.out.printf("| %-15s |\n","3.-Salir");
+        System.out.println("-------------------");
+        System.out.printf(">> ");
+    }
+    public static void menuMostrarOpcionesUsersTransaccions(){
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","Transacciones");
+        System.out.println("-------------------");
+        System.out.printf("| %-15s |\n","1.-Todas");
+        System.out.printf("| %-15s |\n","2.-Por Fecha");
+        System.out.printf("| %-15s |\n","3.-Salir");
+        System.out.println("-------------------");
         System.out.printf(">> ");
     }
 }

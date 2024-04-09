@@ -6,11 +6,11 @@ public class Transaction {
 
     private String transactionID;
     private String type;
-    private Client client = new Client();
+    private User client = new User();
     private Book borrowedBook = new Book();
     private Date borrowDate = new Date();
 
-    public void createNewTransaction(String transactionID, String type, Client client, Book borrowedBook, Date borrowDate) {
+    public void createNewTransaction(String transactionID, String type, User client, Book borrowedBook, Date borrowDate) {
         this.transactionID = transactionID;
         this.type = type;
         this.client = client;
@@ -28,7 +28,7 @@ public class Transaction {
         return type;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
