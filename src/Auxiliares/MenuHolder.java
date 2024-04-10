@@ -265,11 +265,11 @@ public class MenuHolder {
     }
     public static void menuDeSeleccionDeAdmin(){
         System.out.printf(" %-10s \n","-----------------------");
-        System.out.printf("%-14s\n","Administradores");
+        System.out.printf("| %-14s |\n","Administradores");
         System.out.printf(" %-10s \n","-----------------------");
         for (int i = 0; i< UserRepository.adminsArrayList.size(); i++ ){
             System.out.printf("|%-2s.- ",i+1);
-            System.out.printf("%-12s |\n", UserRepository.adminsArrayList.get(i).getUserName());
+            System.out.printf("%-12s    |\n", UserRepository.adminsArrayList.get(i).getUserName());
         }
         System.out.printf(" %-10s \n","-----------------------");
         System.out.print(">> ");

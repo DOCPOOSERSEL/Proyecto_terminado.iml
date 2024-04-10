@@ -15,19 +15,18 @@ public class LogInController {
             do {
                 MenuHolder.menuDeSeleccionDeAdmin();
                 userNum = sc.nextInt();
+                sc.nextLine();
                 userNum--;
             }while(userNum>UserRepository.adminsArrayList.size() || userNum<0);
-            sc.nextLine();
             System.out.println("Ingrese la contraseña");
             System.out.print(">> ");
             auxs = sc.nextLine();
-            auxs = Password.hashString(auxs);
-            if (auxs != UserRepository.adminsArrayList.get(userNum).getPassword()){
+            if (Password.hashString(auxs) != UserRepository.adminsArrayList.get(userNum).getPassword()){
                 System.out.println("Cuenta equivocada o contraseña incorrecta");
             }else {
                 System.out.println("Seccion iniciada con exito!");
             }
-        }while(auxs != UserRepository.adminsArrayList.get(userNum).getPassword());
+        }while(Password.hashString(auxs) != UserRepository.adminsArrayList.get(userNum).getPassword());
         return userNum;
     }
     public static int userLogIn(){
@@ -35,19 +34,18 @@ public class LogInController {
             do {
                 MenuHolder.menuDeSeleccionDeUser();
                 userNum = sc.nextInt();
+                sc.nextLine();
                 userNum--;
             }while(userNum>UserRepository.userArrayList.size() || userNum<0);
-            sc.nextLine();
             System.out.println("Ingrese la contraseña");
             System.out.print(">> ");
             auxs = sc.nextLine();
-            auxs = Password.hashString(auxs);
-            if (auxs != UserRepository.userArrayList.get(userNum).getPassword()){
+            if (Password.hashString(auxs) != UserRepository.userArrayList.get(userNum).getPassword()){
                 System.out.println("Cuenta equivocada o contraseña incorrecta");
             }else {
                 System.out.println("Seccion iniciada con exito!");
             }
-        }while(auxs != UserRepository.adminsArrayList.get(userNum).getPassword());
+        }while(Password.hashString(auxs) != UserRepository.userArrayList.get(userNum).getPassword());
         return userNum;
     }
 }

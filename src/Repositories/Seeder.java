@@ -1,5 +1,6 @@
 package Repositories;
 import Auxiliares.Password;
+import Auxiliares.Permissions;
 import Proyector.*;
 
 import java.util.Date;
@@ -64,5 +65,17 @@ public class Seeder {
         client3.setProfileUser("Lolita","Ayala",clientDate3,Password.hashString("silvarrera"));
         UserRepository.userArrayList.add(client3);
 
+        //Admin1
+        Admins newAdmin1 = new Admins();
+        Date AdminDate1 = new Date(2005,3,9);
+        newAdmin1.setProfileUser("Sergio","Rodriguez",AdminDate1, Password.hashString("contraseña"));
+        newAdmin1.setSuperAdmin(true);
+        UserRepository.adminsArrayList.add(newAdmin1);
+        //Admin2
+        Admins newAdmin2 = new Admins();
+        Date AdminDate2 = new Date(2005,9,23);
+        newAdmin2.setProfileUser("Poncho","ponchito",AdminDate2, Password.hashString("123"));
+        newAdmin2.adminPermissions.add(Permissions.WRITE);
+        UserRepository.adminsArrayList.add(newAdmin2);
     }
 }

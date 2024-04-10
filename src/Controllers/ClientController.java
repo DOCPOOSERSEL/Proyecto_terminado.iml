@@ -85,7 +85,6 @@ public class ClientController {
         System.out.println("Ingrese la Contraseña:");
         System.out.print(">> ");
         password = sc.nextLine();
-        password = Password.hashString(password);
         User newClient = new User();
         newClient.setProfileUser(Name,LastName,newdate,password);
         UserRepository.userArrayList.add(newClient);

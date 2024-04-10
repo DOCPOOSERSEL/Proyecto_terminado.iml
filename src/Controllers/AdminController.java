@@ -23,7 +23,7 @@ public class AdminController {
             switch (indice){//Editor de admins
                 case 1:/*Crear un admin*/
                     Date newdate = new Date();
-                    System.out.println("> > Ingrese los datos de el nuevo Cliente < <");
+                    System.out.println("> > Ingrese los datos de el nuevo Admin < <");
                     System.out.printf("Ingrese el nombre: ");
                     String Name = sc.nextLine();
                     System.out.printf("Ingrese el Apellido: ");
@@ -39,6 +39,9 @@ public class AdminController {
                     auxn = sc.nextInt();
                     newdate.setYear(auxn);
                     sc.nextLine();
+                    System.out.println(("Ingrese la contraseña"));
+                    System.out.print(">> ");
+                    auxs = sc.nextLine();
                     Admins newAdmin = new Admins();
                     newAdmin.setProfileUser(Name,LastName,newdate,auxs);
                     setAdminPermisions(newAdmin);
