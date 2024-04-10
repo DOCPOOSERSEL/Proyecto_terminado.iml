@@ -245,7 +245,7 @@ public class MenuHolder {
     //Menu de LogIn
     public static void menuDeinicioDeSeccion(){
         System.out.println("-----------------------------");
-        System.out.printf("| %-20s |\n","Menu de Inicio de seccion");
+        System.out.printf("| %-20s |\n","Inicio de seccion");
         System.out.println("-----------------------------");
         System.out.printf("| %-20s |\n","1.-Administrador");
         System.out.printf("| %-20s |\n","2.-Usuario");
@@ -278,7 +278,7 @@ public class MenuHolder {
 //Admins
     public static void menuDeCreacionDeAdmins(){
         System.out.println("-------------------");
-        System.out.printf("| %-15s |\n","Menu de Administracion");
+        System.out.printf("| %-15s |\n","Administracion");
         System.out.println("-------------------");
         System.out.printf("| %-15s |\n","1.-Crear");
         System.out.printf("| %-15s |\n","2.-Editar");
@@ -305,7 +305,7 @@ public class MenuHolder {
         System.out.printf("| %-15s |\n","Biblioteca");
         System.out.println("-------------------");
         System.out.printf("| %-15s |\n","1.-Ver Libros");
-        System.out.printf("| %-15s |\n","2.-Ver Transacciones");
+        System.out.printf("| %-15s |\n","2.-Transacciones");
         System.out.printf("| %-15s |\n","3.-Salir");
         System.out.println("-------------------");
         System.out.printf(">> ");
