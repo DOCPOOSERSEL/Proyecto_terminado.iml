@@ -6,16 +6,6 @@ import Repositories.UserRepository;
 
 public class MenuHolder {
     //Menus de Inicio
-    public static void menuDeInicio(){
-        System.out.println("-------------------");
-        System.out.printf("| %-15s |\n","Menu de Inicio");
-        System.out.println("-------------------");
-        System.out.printf("| %-15s |\n","1.-Iniciar");
-        System.out.printf("| %-15s |\n","2.-Manual");
-        System.out.printf("| %-15s |\n","3.-Finalizar");
-        System.out.println("-------------------");
-        System.out.printf(">> ");
-    }
     public static void menuDeInicioManual(){
         System.out.println("------------------------");
         System.out.printf("| %-20s |\n","Menu");
@@ -23,11 +13,11 @@ public class MenuHolder {
         System.out.printf("| %-20s |\n","1.-Menu de Autor");
         System.out.printf("| %-20s |\n","2.-Menu de Libro");
         System.out.printf("| %-20s |\n","3.-Menu de Cliente");
-        System.out.printf("| %-20s |\n","4.-Finalizar");
+        System.out.printf("| %-20s |\n","4.-Menu de Admins");
+        System.out.printf("| %-20s |\n","5.-Finalizar");
         System.out.println("------------------------");
         System.out.printf(">> ");
     }
-
 
     //Menus de author
     public static void menuAuthorOpcionesPrincipales(){
@@ -254,12 +244,12 @@ public class MenuHolder {
 
     //Menu de LogIn
     public static void menuDeinicioDeSeccion(){
-        System.out.println("-------------------");
-        System.out.printf("| %-15s |\n","Menu de Inicio de seccion");
-        System.out.println("-------------------");
-        System.out.printf("| %-15s |\n","1.-Administrador");
-        System.out.printf("| %-15s |\n","2.-Usuario");
-        System.out.printf("| %-15s |\n","3.-Finalizar");
+        System.out.println("-----------------------------");
+        System.out.printf("| %-20s |\n","Menu de Inicio de seccion");
+        System.out.println("-----------------------------");
+        System.out.printf("| %-20s |\n","1.-Administrador");
+        System.out.printf("| %-20s |\n","2.-Usuario");
+        System.out.printf("| %-20s |\n","3.-Finalizar");
         System.out.println("-------------------");
         System.out.printf(">> ");
     }

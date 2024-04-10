@@ -21,12 +21,12 @@ public class LogInController {
             System.out.println("Ingrese la contraseña");
             System.out.print(">> ");
             auxs = sc.nextLine();
-            if (Password.hashString(auxs) != UserRepository.adminsArrayList.get(userNum).getPassword()){
-                System.out.println("Cuenta equivocada o contraseña incorrecta");
-            }else {
+            if (Password.hashString(auxs).equals(UserRepository.adminsArrayList.get(userNum).getPassword())){
                 System.out.println("Seccion iniciada con exito!");
+            }else {
+                System.out.println("Cuenta equivocada o contraseña incorrecta");
             }
-        }while(Password.hashString(auxs) != UserRepository.adminsArrayList.get(userNum).getPassword());
+        }while(!Password.hashString(auxs).equals(UserRepository.adminsArrayList.get(userNum).getPassword()));
         return userNum;
     }
     public static int userLogIn(){
@@ -40,12 +40,12 @@ public class LogInController {
             System.out.println("Ingrese la contraseña");
             System.out.print(">> ");
             auxs = sc.nextLine();
-            if (Password.hashString(auxs) != UserRepository.userArrayList.get(userNum).getPassword()){
-                System.out.println("Cuenta equivocada o contraseña incorrecta");
-            }else {
+            if (Password.hashString(auxs).equals(UserRepository.userArrayList.get(userNum).getPassword())){
                 System.out.println("Seccion iniciada con exito!");
+            }else {
+                System.out.println("Cuenta equivocada o contraseña incorrecta");
             }
-        }while(Password.hashString(auxs) != UserRepository.userArrayList.get(userNum).getPassword());
+        }while(!Password.hashString(auxs).equals(UserRepository.userArrayList.get(userNum).getPassword()));
         return userNum;
     }
 }

@@ -112,11 +112,15 @@ public class AuthorController {
                         }else{
                             System.out.println("Autor no puede ser borrado ya que todavia hay libros");
                         }
+                    }else{
+                        System.out.println("Sin Autorizacion");
                     }
                     break;
                 case 4: // Mostrar a los autores con sus libros
                     if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
                         MenuHolder.menuAuthorConLibros();
+                    }else{
+                        System.out.println("Sin Autorizacion");
                     }
                     break;
                 case 5:

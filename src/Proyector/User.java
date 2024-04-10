@@ -12,7 +12,7 @@ public class User {
 
     public void setProfileUser(String Name , String Lastname, Date Birthdate, String Password) {
         profileUser.setProfile(Name,Lastname,Birthdate);
-        this.password = Auxiliares.Password.hashString(Password);
+        password = Auxiliares.Password.hashString(Password);
     }
 
     //omg un stealix hiiiiii

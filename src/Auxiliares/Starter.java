@@ -1,9 +1,6 @@
 package Auxiliares;
 
-import Controllers.AuthorController;
-import Controllers.BookController;
-import Controllers.ClientController;
-import Controllers.LogInController;
+import Controllers.*;
 import Proyector.User;
 import Repositories.UserRepository;
 
@@ -30,7 +27,7 @@ public class Starter {
                     do {
                         MenuHolder.menuDeInicioManual();
                         opcion2 = sc.nextInt();
-                    } while (opcion2 != 1 && opcion2 != 2 && opcion2 != 3 && opcion2 != 4 ) ;
+                    } while (opcion2 != 1 && opcion2 != 2 && opcion2 != 3 && opcion2 != 4 && opcion2 != 5 ) ;
                     if (opcion2 == 1) {
                         AuthorController.authorMetodo(UserRepository.adminsArrayList.get(userNum));
                     } else if (opcion2 == 2) {
@@ -38,6 +35,12 @@ public class Starter {
                     } else if (opcion2 == 3) {
                         ClientController.metodoClientController(UserRepository.adminsArrayList.get(userNum));
                     } else if (opcion2 == 4) {
+                        if (UserRepository.adminsArrayList.get(userNum).getSuperAdmin() == flandelimon){
+                            AdminController.adminsCRUD();
+                        }else{
+                            System.out.println("Sin Autorizacion");
+                        }
+                    } else {
                         System.out.println("Buenas noches chavales");
                         flandelimon = false;
                     }
