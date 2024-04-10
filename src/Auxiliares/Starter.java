@@ -1,9 +1,7 @@
 package Auxiliares;
-
 import Controllers.*;
 import Proyector.User;
 import Repositories.UserRepository;
-
 import java.util.Date;
 import java.util.Scanner;
 
@@ -48,22 +46,24 @@ public class Starter {
                 case 2:
                     userNum = LogInController.userLogIn();
                     do {
-                        MenuHolder.menuMostrarOpcionesUsers();
-                        opcion2=sc.nextInt();
-                        sc.nextLine();
-                    }while(opcion2 != 1 && opcion2 != 2 && opcion2 != 3);
-                    switch (opcion2){
-                        case 1:
-                            MenuHolder.menuBookShowLibraryBooks();
-                            break;
-                        case 2:
-                            showUserTransactions(UserRepository.userArrayList.get(userNum),userNum);
-                            break;
-                        case 3:
-                            System.out.println("Buenas noches chavales");
-                            flandelimon = false;
-                            break;
-                    }
+                        do {
+                            MenuHolder.menuMostrarOpcionesUsers();
+                            opcion2=sc.nextInt();
+                            sc.nextLine();
+                        }while(opcion2 != 1 && opcion2 != 2 && opcion2 != 3);
+                        switch (opcion2){
+                            case 1:
+                                MenuHolder.menuBookShowLibraryBooks();
+                                break;
+                            case 2:
+                                showUserTransactions(UserRepository.userArrayList.get(userNum),userNum);
+                                break;
+                            case 3:
+                                System.out.println("Buenas noches chavales");
+                                flandelimon = false;
+                                break;
+                        }
+                    }while (opcion2 != 3);
                     break;
                 case 3:
                     System.out.println("Buenas noches");
