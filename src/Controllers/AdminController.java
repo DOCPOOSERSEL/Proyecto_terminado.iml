@@ -73,12 +73,12 @@ public class AdminController {
     public static void setAdminPermisions(Admins newAdmin){
         do {
             System.out.println("Tiene permiso de Crear/Editar (S) (N)");
-            System.out.print(">>");
+            System.out.print(">> ");
             auxs2 = sc.nextLine();
         }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S"){
+        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.WRITE)){
             newAdmin.adminPermissions.add(Permissions.WRITE);
-        }else{
+        }else if (auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.WRITE)){
             newAdmin.adminPermissions.remove(Permissions.WRITE);
         }
         do {
@@ -86,9 +86,9 @@ public class AdminController {
             System.out.print(">>");
             auxs2 = sc.nextLine();
         }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S"){
+        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.DELETE)){
             newAdmin.adminPermissions.add(Permissions.DELETE);
-        }else{
+        }else if (auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.DELETE)){
             newAdmin.adminPermissions.remove(Permissions.DELETE);
         }
         do {
@@ -96,9 +96,9 @@ public class AdminController {
             System.out.print(">>");
             auxs2 = sc.nextLine();
         }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S"){
+        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.READ)){
             newAdmin.adminPermissions.add(Permissions.READ);
-        }else{
+        }else if(auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.READ)){
             newAdmin.adminPermissions.remove(Permissions.READ);
         }
     }
