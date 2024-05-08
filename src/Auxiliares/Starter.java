@@ -69,7 +69,6 @@ public class Starter {
                             break;
                         case 3:
                             System.out.println("Buenas noches chavales");
-                            flandelimon = false;
                             break;
                     }
                 }while (opcion2 != 3);
