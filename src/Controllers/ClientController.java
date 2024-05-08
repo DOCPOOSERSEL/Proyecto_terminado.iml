@@ -10,8 +10,49 @@ public class ClientController {
     static int pildora,auxn,indice;
     static String auxs,password;
     static boolean checkTrue=true;
-
+    static HashMap<Integer, Runnable> actions = new HashMap<>();
     public static void metodoClientController(Admins loggedInAccount){
+        actions.put(1, () ->{
+            TransactionController.transactionFuncion(loggedInAccount);
+        });
+        actions.put(2, () ->{
+            do {
+                do {
+                    MenuHolder.menuCreacionEdicionClient();
+                    indice = sc.nextInt();
+                    sc.nextLine();
+                }while(indice > 3 || indice <= 0);
+                switch (indice) {//Crear o editar
+                    case 1:/*Crear un Usuario*/
+                        if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
+                            clientCreator();
+                        }else{
+                            System.out.println("Sin Autorizacion");
+                        }
+                        break;
+                    case 2:/*Editar un cliente*/
+                        if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin() == checkTrue){
+                            clientEditor(loggedInAccount);
+                        }else{
+                            System.out.println("Sin Autorizacion");
+                        }
+                        break;
+                    case 3:/*Aqui regresa al de clientes y transacciones*/
+                        System.out.println("Regressando al menu anterior");
+                        break;
+                }
+            }while(indice != 3);
+        });
+        actions.put(3, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                MenuHolder.menuEnseñarClientesConLibros();
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(4, () ->{
+            System.out.println("Regresando al menu anterior");
+        });
         do {
             do {
                 MenuHolder.menuInicioClient();
@@ -21,71 +62,22 @@ public class ClientController {
                     System.out.println("Nah uh");
                 }
             }while(pildora > 4 || pildora <= 0);
-            switch (pildora){
-                case 1: /*Aqui te mete a las transacciones*/
-                    TransactionController.transactionFuncion(loggedInAccount);
-                case 2: /*Aqui va todo lo de los clientes*/
-                    do {
-                        do {
-                            MenuHolder.menuCreacionEdicionClient();
-                            indice = sc.nextInt();
-                            sc.nextLine();
-                        }while(indice > 3 || indice < 0);
-                        switch (indice) {//Crear o editar
-                            case 1:/*Crear un Usuario*/
-                                if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
-                                    clientCreator();
-                                }else{
-                                    System.out.println("Sin Autorizacion");
-                                }
-                                break;
-                            case 2:/*Editar un cliente*/
-                                if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin() == checkTrue){
-                                    clientEditor(loggedInAccount);
-                                }else{
-                                    System.out.println("Sin Autorizacion");
-                                }
-                                break;
-                            case 3:/*Aqui regresa al de clientes y transacciones*/
-                                System.out.println("Regressando al menu anterior");
-                                break;
-                        }
-                    }while(indice != 3);
-                    break;
-                case 3:/*Aqui te enseña los clientes con los libros que tienen*/
-                    if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
-                        MenuHolder.menuEnseñarClientesConLibros();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 4:/*Aqui te regresa*/
-                    System.out.println("Regresando al menu anterior");
-                    break;
-            }
+            actions.get(pildora).run();
         }while(pildora != 4);
     }
     public static void clientCreator(){
         Date newdate = new Date();
         System.out.println("> > Ingrese los datos de el nuevo Cliente < <");
-        System.out.printf("Ingrese el nombre: ");
-        String Name = sc.nextLine();
-        System.out.printf("Ingrese el Apellido: ");
-        String LastName = sc.nextLine();
+        String Name = ConsoleReader.readString("Ingrese el nombre: ");
+        String LastName = ConsoleReader.readString("Ingrese el Apellido: ");
         System.out.println("> > Ingrese la fecha de nacimiento < <");
-        System.out.printf("Ingrese el Dia: ");
-        auxn = sc.nextInt();
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Dia: ");
         newdate.setDate(auxn);
-        System.out.printf("Ingrese el Mes: ");
-        auxn = sc.nextInt();
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Mes: ");
         newdate.setMonth(auxn);
-        System.out.printf("Ingrese el Año: ");
-        auxn = sc.nextInt();
-        sc.nextLine();
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Año: ");
         newdate.setYear(auxn);
-        System.out.println("Ingrese la Contraseña:");
-        System.out.print(">> ");
-        password = sc.nextLine();
+        password = ConsoleReader.readString("Ingrese la contraseña: ");
         User newClient = new User();
         newClient.setProfileUser(Name,LastName,newdate,password);
         UserRepository.userArrayList.add(newClient);

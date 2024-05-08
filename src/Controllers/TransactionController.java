@@ -9,40 +9,39 @@ public class TransactionController {
     static String auxs;
     static boolean checkTrue = true, checkFalse=false;
     static Scanner sc = new Scanner(System.in);
-
+    static HashMap<Integer, Runnable> actions = new HashMap<>();
     public static void transactionFuncion(Admins loggedInAccount){
+        actions.put(1, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
+                createTransaction();
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(2, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
+                createReturnTransaction();
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(3, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.READ) || loggedInAccount.getSuperAdmin()==checkTrue){
+                showClientTransactions();
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(4, () ->{
+            System.out.println("Regresando al menu anterior");
+        });
         do {
             do {
                 MenuHolder.menuTransaccionInicio();
                 indice1 = sc.nextInt();
                 sc.nextLine();
             }while(indice1>4 || indice1<=0);
-            switch (indice1){
-                case 1://Sacar un libro
-                    if (loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
-                        createTransaction();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 2://Regresar un libro
-                    if (loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
-                        createReturnTransaction();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 3://Mostrar las transacciones con filtro
-                    if (loggedInAccount.adminPermissions.contains(Permissions.READ) || loggedInAccount.getSuperAdmin()==checkTrue){
-                        showClientTransactions();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 4:
-                    System.out.println("Regresando al menu anterior");
-                    break;
-            }
+            actions.get(indice1).run();
         }while(indice1 != 4);
     }
     public static void createTransaction(){

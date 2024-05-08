@@ -10,8 +10,69 @@ public class BookController {
     static int pildora,auxn,indice=0;
     static String auxs;
     static boolean checkTrue=true;
+    static HashMap<Integer, Runnable> actions = new HashMap<>();
 
     public static void bookMetodo(Admins loggedInAccount) {
+        actions.put(1, () ->{
+            if (AuthorRepository.authorArrayList.isEmpty()){
+                System.out.println("No hay autores disponibles");
+                System.out.printf(" %-10s \n","------------------");
+            }else if (loggedInAccount.adminPermissions.contains(Permissions.WRITE)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                crearUnLibro();
+            }
+        });
+        actions.put(2, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.WRITE)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                if (BookRepository.libraryBooks.isEmpty()){
+                    System.out.println("No hay libros que se puedan editar");
+                }else{
+                    MenuHolder.menuBookShowLibraryBooks();
+                    do {
+                        System.out.printf(">> Que libro desea editar: ");
+                        indice = sc.nextInt();
+                        indice--;
+                    }while (indice> BookRepository.libraryBooks.size() || indice<=0);
+                    editarUnLibro();
+                }
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(3, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.DELETE)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                do {
+                    MenuHolder.menuBookShowLibraryBooks();
+                    System.out.printf(">> Seleccione el libro a eliminar: ");
+                    auxn= sc.nextInt();
+                    sc.nextLine();
+                    auxn--;
+                }while(auxn> BookRepository.libraryBooks.size() || auxn <0);
+                if (BookRepository.libraryBooks.get(auxn).getAvailable() == checkTrue){
+                    for (int i=0 ; i<AuthorRepository.authorArrayList.size();i++){
+                        if (AuthorRepository.authorArrayList.get(i).getProfileAuthorName() == BookRepository.libraryBooks.get(auxn).getAuthor()){
+                            for (int j=0; j<AuthorRepository.authorArrayList.get(i).authorBooks.size();j++){
+                                if (AuthorRepository.authorArrayList.get(i).authorBooks.get(j).getAuthor() == BookRepository.libraryBooks.get(auxn).getAuthor() ){
+                                    AuthorRepository.authorArrayList.get(i).authorBooks.remove(j);
+                                }
+                            }
+                        }
+                    }
+                    BookRepository.libraryBooks.remove(auxn);
+                }
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(4, () ->{
+            if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                MenuHolder.menuBookShowLibraryBooks();
+            }else{
+                System.out.println("Sin Autorizacion");
+            }
+        });
+        actions.put(5, () ->{
+            System.out.println("Regresando al menu anterior");
+        });
         do {
             do { //Menu Principal de libros
                MenuHolder.menuBookPrincipal();
@@ -20,72 +81,7 @@ public class BookController {
                     System.out.println("Nah uh");
                 }
             }while(pildora != 1 && pildora != 2 && pildora !=3 && pildora !=4 && pildora !=5);
-
-            switch (pildora){
-                case 1: //Crear un libro
-                    if (AuthorRepository.authorArrayList.isEmpty()){
-                        System.out.println("No hay autores disponibles");
-                        System.out.printf(" %-10s \n","------------------");
-                        break;
-                    }else if (loggedInAccount.adminPermissions.contains(Permissions.WRITE)|| loggedInAccount.getSuperAdmin()==checkTrue){
-                        crearUnLibro();
-                    }
-                    break;
-                case 2://Editar un libro
-                    /*Comprobar si hay libros y seleccionar a editar*/
-                    if (loggedInAccount.adminPermissions.contains(Permissions.WRITE)|| loggedInAccount.getSuperAdmin()==checkTrue){
-                        if (BookRepository.libraryBooks.isEmpty()){
-                            System.out.println("No hay libros que se puedan editar");
-                            break;
-                        }else{
-                            MenuHolder.menuBookShowLibraryBooks();
-                            do {
-                                System.out.printf(">> Que libro desea editar: ");
-                                indice = sc.nextInt();
-                                indice--;
-                            }while (indice> BookRepository.libraryBooks.size() || indice<=0);
-                        }
-                        editarUnLibro();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 3:
-                    if (loggedInAccount.adminPermissions.contains(Permissions.DELETE)|| loggedInAccount.getSuperAdmin()==checkTrue){
-                        do {
-                            MenuHolder.menuBookShowLibraryBooks();
-                            System.out.printf(">> Seleccione el libro a eliminar: ");
-                            auxn= sc.nextInt();
-                            sc.nextLine();
-                            auxn--;
-                        }while(auxn> BookRepository.libraryBooks.size() || auxn <0);
-                        if (BookRepository.libraryBooks.get(auxn).getAvailable() == checkTrue){
-                            for (int i=0 ; i<AuthorRepository.authorArrayList.size();i++){
-                                if (AuthorRepository.authorArrayList.get(i).getProfileAuthorName() == BookRepository.libraryBooks.get(auxn).getAuthor()){
-                                    for (int j=0; j<AuthorRepository.authorArrayList.get(i).authorBooks.size();j++){
-                                        if (AuthorRepository.authorArrayList.get(i).authorBooks.get(j).getAuthor() == BookRepository.libraryBooks.get(auxn).getAuthor() ){
-                                            AuthorRepository.authorArrayList.get(i).authorBooks.remove(j);
-                                        }
-                                    }
-                                }
-                            }
-                            BookRepository.libraryBooks.remove(auxn);
-                        }
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 4://mostrar libros
-                    if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
-                        MenuHolder.menuBookShowLibraryBooks();
-                    }else{
-                        System.out.println("Sin Autorizacion");
-                    }
-                    break;
-                case 5:
-                    System.out.println("Regresando al menu anterior");
-                    break;
-            }
+            actions.get(pildora).run();
         }while (pildora != 5 );
     }
 
