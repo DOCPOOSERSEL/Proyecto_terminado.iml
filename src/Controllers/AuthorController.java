@@ -21,7 +21,7 @@ public class AuthorController {
             }while ( pildora != 1 && pildora != 2 && pildora !=3 && pildora !=4 && pildora !=5);
             switch (pildora){
                 case 1: // Creador de Autores
-                    if(loggedInAccount.adminPermissions.contains(Permissions.WRITE)|| loggedInAccount.getSuperAdmin()==checkTrue){
+                    if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
                         String nom1,nom2;
                         int n3;
                         Date birthDate = new Date();

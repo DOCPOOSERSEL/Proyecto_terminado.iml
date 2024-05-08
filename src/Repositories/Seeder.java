@@ -54,16 +54,19 @@ public class Seeder {
         Date clientDate1 = new Date(2005,5,8);
         client1.setProfileUser("Candido","Ortega",clientDate1, "poomaster");
         UserRepository.userArrayList.add(client1);
+        UserRepository.generalArraylist.add(client1);
         //Cliente2
         User client2 = new User();
         Date clientDate2 = new Date(1456,9,13);
         client2.setProfileUser("John","Cena",clientDate2,"nomepuedesver");
         UserRepository.userArrayList.add(client2);
+        UserRepository.generalArraylist.add(client2);
         //Cliente3
         User client3 = new User();
         Date clientDate3 = new Date(1999,12,29);
         client3.setProfileUser("Lolita","Ayala",clientDate3,"silvarrera");
         UserRepository.userArrayList.add(client3);
+        UserRepository.generalArraylist.add(client3);
 
         //Admin1
         Admins newAdmin1 = new Admins();
@@ -71,11 +74,13 @@ public class Seeder {
         newAdmin1.setProfileUser("Sergio","Rodriguez",AdminDate1, "adalid");
         newAdmin1.setSuperAdmin(true);
         UserRepository.adminsArrayList.add(newAdmin1);
+        UserRepository.generalArraylist.add(newAdmin1);
         //Admin2
         Admins newAdmin2 = new Admins();
         Date AdminDate2 = new Date(2005,9,23);
         newAdmin2.setProfileUser("Poncho","ponchito",AdminDate2, "123p");
         newAdmin2.adminPermissions.add(Permissions.WRITE);
         UserRepository.adminsArrayList.add(newAdmin2);
+        UserRepository.generalArraylist.add(newAdmin2);
     }
 }

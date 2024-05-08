@@ -243,16 +243,7 @@ public class MenuHolder {
     }
 
     //Menu de LogIn
-    public static void menuDeinicioDeSeccion(){
-        System.out.println("-----------------------------");
-        System.out.printf("| %-20s |\n","Inicio de seccion");
-        System.out.println("-----------------------------");
-        System.out.printf("| %-20s |\n","1.-Administrador");
-        System.out.printf("| %-20s |\n","2.-Usuario");
-        System.out.printf("| %-20s |\n","3.-Finalizar");
-        System.out.println("-------------------");
-        System.out.printf(">> ");
-    }
+
     public static void menuDeSeleccionDeAdmin(){
         System.out.printf(" %-10s \n","-----------------------");
         System.out.printf("| %-14s |\n","Administradores");
@@ -268,9 +259,9 @@ public class MenuHolder {
         System.out.printf(" %-10s \n","-----------------------");
         System.out.printf("%-14s\n","Users");
         System.out.printf(" %-10s \n","-----------------------");
-        for (int i = 0; i< UserRepository.userArrayList.size(); i++ ){
+        for (int i = 0; i< UserRepository.generalArraylist.size(); i++ ){
             System.out.printf("|%-2s.- ",i+1);
-            System.out.printf("%-12s |\n", UserRepository.userArrayList.get(i).getUserName());
+            System.out.printf("%-12s |\n", UserRepository.generalArraylist.get(i).getUserName());
         }
         System.out.printf(" %-10s \n","-----------------------");
         System.out.print(">> ");

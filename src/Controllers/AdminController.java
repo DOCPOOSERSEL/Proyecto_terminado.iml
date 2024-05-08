@@ -1,72 +1,46 @@
 package Controllers;
 
+import Auxiliares.ConsoleReader;
 import Auxiliares.MenuHolder;
 import Auxiliares.Permissions;
 import Proyector.Admins;
 import Repositories.UserRepository;
-
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class AdminController {
     static Scanner sc = new Scanner(System.in);
     static int indice, auxn;
     static String auxs, auxs2;
+    static HashMap<Integer, Runnable> actions = new HashMap<>();
+
     public static void adminsCRUD(){
+        actions.put(1, AdminController::crearUnAdmin);
+        actions.put(2, AdminController::adminEditor);
+        actions.put(3, () ->{
+            boolean checkTrue = true;
+            do {
+                MenuHolder.menuDeSeleccionDeAdmin();
+                auxn = sc.nextInt();
+                auxn--;
+            }while(auxn>UserRepository.adminsArrayList.size() || auxn<0);
+            if(UserRepository.adminsArrayList.get(auxn).getSuperAdmin() == checkTrue){
+                System.out.println("No se puede borrar a la autoridad suprema");
+            }else{
+                UserRepository.generalArraylist.remove(UserRepository.adminsArrayList.get(auxn));
+                UserRepository.adminsArrayList.remove(auxn);
+                System.out.println("Administrador borrado con exito");
+            }
+        });
+        actions.put(4, () ->{
+            System.out.println("Regresando al menu anterior");
+        });
         do {
             do {
                 MenuHolder.menuDeCreacionDeAdmins();
                 indice = sc.nextInt();
                 sc.nextLine();
-                indice--;
             }while(indice >4 || indice <=0);
-            switch (indice){//Editor de admins
-                case 1:/*Crear un admin*/
-                    Date newdate = new Date();
-                    System.out.println("> > Ingrese los datos de el nuevo Admin < <");
-                    System.out.printf("Ingrese el nombre: ");
-                    String Name = sc.nextLine();
-                    System.out.printf("Ingrese el Apellido: ");
-                    String LastName = sc.nextLine();
-                    System.out.println("> > Ingrese la fecha de nacimiento < <");
-                    System.out.printf("Ingrese el Dia: ");
-                    auxn = sc.nextInt();
-                    newdate.setDate(auxn);
-                    System.out.printf("Ingrese el Mes: ");
-                    auxn = sc.nextInt();
-                    newdate.setMonth(auxn);
-                    System.out.printf("Ingrese el Año: ");
-                    auxn = sc.nextInt();
-                    newdate.setYear(auxn);
-                    sc.nextLine();
-                    System.out.println(("Ingrese la contraseña"));
-                    System.out.print(">> ");
-                    auxs = sc.nextLine();
-                    Admins newAdmin = new Admins();
-                    newAdmin.setProfileUser(Name,LastName,newdate,auxs);
-                    setAdminPermisions(newAdmin);
-                    UserRepository.userArrayList.add(newAdmin);
-                    break;
-                case 2:/*Editar un administrador*/
-                    adminEditor();
-                    break;
-                case 3:/*Eliminar un administrador*/
-                    boolean checkTrue = true;
-                    do {
-                        MenuHolder.menuDeSeleccionDeAdmin();
-                        auxn = sc.nextInt();
-                        auxn--;
-                    }while(auxn>UserRepository.adminsArrayList.size() || auxn<0);
-                    if(UserRepository.adminsArrayList.get(auxn).getSuperAdmin() == checkTrue){
-                        System.out.println("No se puede borrar a la autoridad suprema");
-                    }else{
-                        UserRepository.adminsArrayList.remove(auxn);
-                        System.out.println("Administrador borrado con exito");
-                    }
-                case 4:/*Regresar*/
-                    System.out.println("Regresando al menu Principal");
-                    break;
-            }
+            actions.get(indice).run();
         }while(indice != 4);
     }
 
@@ -75,30 +49,30 @@ public class AdminController {
             System.out.println("Tiene permiso de Crear/Editar (S) (N)");
             System.out.print(">> ");
             auxs2 = sc.nextLine();
-        }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.WRITE)){
+        }while(!auxs2.equals("s") && !auxs2.equals("S") && !auxs2.equals("n") && !auxs2.equals("N"));
+        if (auxs2.equals("s") || auxs2.equals("S") && !newAdmin.adminPermissions.contains(Permissions.WRITE)){
             newAdmin.adminPermissions.add(Permissions.WRITE);
-        }else if (auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.WRITE)){
+        }else if (newAdmin.adminPermissions.contains(Permissions.WRITE)){
             newAdmin.adminPermissions.remove(Permissions.WRITE);
         }
         do {
             System.out.println("Tiene permiso de Eliminar (S) (N)");
             System.out.print(">>");
             auxs2 = sc.nextLine();
-        }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.DELETE)){
+        }while(!auxs2.equals("s") && !auxs2.equals("S") && auxs2 != "n" && auxs2 != "N");
+        if (auxs2.equals("s") || auxs2.equals("S") && !newAdmin.adminPermissions.contains(Permissions.DELETE)){
             newAdmin.adminPermissions.add(Permissions.DELETE);
-        }else if (auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.DELETE)){
+        }else if (newAdmin.adminPermissions.contains(Permissions.DELETE)){
             newAdmin.adminPermissions.remove(Permissions.DELETE);
         }
         do {
             System.out.println("Tiene permiso de Leer (S) (N)");
             System.out.print(">>");
             auxs2 = sc.nextLine();
-        }while(auxs2 != "s" && auxs2 != "S" && auxs2 != "n" && auxs2 != "N");
-        if (auxs2 == "s" || auxs2 == "S" && !newAdmin.adminPermissions.contains(Permissions.READ)){
+        }while(!auxs2.equals("s") && !auxs2.equals("S") && !auxs2.equals("n") && !auxs2.equals("N"));
+        if (auxs2.equals("s") || auxs2.equals("S") && !newAdmin.adminPermissions.contains(Permissions.READ)){
             newAdmin.adminPermissions.add(Permissions.READ);
-        }else if(auxs2 == "n" || auxs2 == "N" && newAdmin.adminPermissions.contains(Permissions.READ)){
+        }else if(newAdmin.adminPermissions.contains(Permissions.READ)){
             newAdmin.adminPermissions.remove(Permissions.READ);
         }
     }
@@ -154,5 +128,24 @@ public class AdminController {
                 }
             }
         }while(opcion != 2 );
+    }
+    public static void crearUnAdmin(){
+        Date newdate = new Date();
+        System.out.println("> > Ingrese los datos de el nuevo Admin < <");
+        String Name = ConsoleReader.readString("Ingrese el nombre: ");
+        String LastName = ConsoleReader.readString("Ingrese el Apellido: ");
+        System.out.println("> > Ingrese la fecha de nacimiento < <");
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Dia: ");
+        newdate.setDate(auxn);
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Mes: ");
+        newdate.setMonth(auxn);
+        auxn = ConsoleReader.validatePositiveInt("Ingrese el Año: ");
+        newdate.setYear(auxn);
+        auxs = ConsoleReader.readString("Ingrese la contraseña: ");
+        Admins newAdmin = new Admins();
+        newAdmin.setProfileUser(Name,LastName,newdate,auxs);
+        setAdminPermisions(newAdmin);
+        UserRepository.generalArraylist.add(newAdmin);
+        UserRepository.adminsArrayList.add(newAdmin);
     }
 }

@@ -1,5 +1,6 @@
 package Auxiliares;
 import Controllers.*;
+import Proyector.Admins;
 import Proyector.User;
 import Repositories.UserRepository;
 import java.util.Date;
@@ -9,66 +10,71 @@ import java.util.Scanner;
 public class Starter {
     static Scanner sc = new Scanner(System.in);
     static int opcion, opcion2, userNum;
-    static boolean flandelimon = true;
+    static boolean flandelimon = true , logIn;
     public static void startProgram(){
         Repositories.Seeder.seederMetodo();
 
         do {
-            MenuHolder.menuDeinicioDeSeccion();
-            opcion = sc.nextInt();
-            sc.nextLine();
-        } while (opcion != 1 && opcion != 2 && opcion != 3 ) ;
-        do {
-            switch (opcion){
-                case 1:
-                    userNum = LogInController.adminLogIn();
+            do {
+                MenuHolder.menuDeSeleccionDeUser();
+                opcion = sc.nextInt();
+                sc.nextLine();
+                opcion--;
+            } while (opcion<0 || opcion>UserRepository.generalArraylist.size()) ;
+
+            logIn=ConsoleReader.validateString(Password.hashString(ConsoleReader.readString("Ingrese la contraseña"))
+                    ,UserRepository.generalArraylist.get(opcion).getPassword());
+
+            if (UserRepository.generalArraylist.get(opcion) instanceof Admins && logIn==true ){
+               do {
+                   do {
+                       MenuHolder.menuDeInicioManual();
+                       opcion2 = sc.nextInt();
+                   } while (opcion2 != 1 && opcion2 != 2 && opcion2 != 3 && opcion2 != 4 && opcion2 != 5 ) ;
+                   if (opcion2 == 1) {
+                       AuthorController.authorMetodo((Admins) UserRepository.generalArraylist.get(opcion));
+                   } else if (opcion2 == 2) {
+                       BookController.bookMetodo((Admins) UserRepository.generalArraylist.get(opcion));
+                   } else if (opcion2 == 3) {
+                       ClientController.metodoClientController((Admins) UserRepository.generalArraylist.get(opcion));
+                   } else if (opcion2 == 4) {
+                       if (((Admins) UserRepository.generalArraylist.get(opcion)).getSuperAdmin()== flandelimon){
+                           AdminController.adminsCRUD();
+                       }else{
+                           System.out.println("Sin Autorizacion");
+                       }
+                   } else {
+                       System.out.println("Buenas noches chavales");
+                   }
+               }while(opcion2 !=5);
+            } else if (UserRepository.generalArraylist.get(opcion) instanceof User && logIn==true) {
+                do {
                     do {
-                        MenuHolder.menuDeInicioManual();
-                        opcion2 = sc.nextInt();
-                    } while (opcion2 != 1 && opcion2 != 2 && opcion2 != 3 && opcion2 != 4 && opcion2 != 5 ) ;
-                    if (opcion2 == 1) {
-                        AuthorController.authorMetodo(UserRepository.adminsArrayList.get(userNum));
-                    } else if (opcion2 == 2) {
-                        BookController.bookMetodo(UserRepository.adminsArrayList.get(userNum));
-                    } else if (opcion2 == 3) {
-                        ClientController.metodoClientController(UserRepository.adminsArrayList.get(userNum));
-                    } else if (opcion2 == 4) {
-                        if (UserRepository.adminsArrayList.get(userNum).getSuperAdmin() == flandelimon){
-                            AdminController.adminsCRUD();
-                        }else{
-                            System.out.println("Sin Autorizacion");
-                        }
-                    } else {
-                        System.out.println("Buenas noches chavales");
-                        flandelimon = false;
+                        MenuHolder.menuMostrarOpcionesUsers();
+                        opcion2=sc.nextInt();
+                        sc.nextLine();
+                    }while(opcion2 != 1 && opcion2 != 2 && opcion2 != 3);
+                    switch (opcion2){
+                        case 1:
+                            MenuHolder.menuBookShowLibraryBooks();
+                            break;
+                        case 2:
+                            userNum=0;
+                            while(!UserRepository.generalArraylist.get(opcion).getUserName().
+                                    equals(UserRepository.userArrayList.get(userNum).getUserName())){
+                                userNum++;
+                            }
+                            showUserTransactions((User) UserRepository.generalArraylist.get(opcion),userNum);
+                            userNum=0;
+                            break;
+                        case 3:
+                            System.out.println("Buenas noches chavales");
+                            flandelimon = false;
+                            break;
                     }
-                    break;
-                case 2:
-                    userNum = LogInController.userLogIn();
-                    do {
-                        do {
-                            MenuHolder.menuMostrarOpcionesUsers();
-                            opcion2=sc.nextInt();
-                            sc.nextLine();
-                        }while(opcion2 != 1 && opcion2 != 2 && opcion2 != 3);
-                        switch (opcion2){
-                            case 1:
-                                MenuHolder.menuBookShowLibraryBooks();
-                                break;
-                            case 2:
-                                showUserTransactions(UserRepository.userArrayList.get(userNum),userNum);
-                                break;
-                            case 3:
-                                System.out.println("Buenas noches chavales");
-                                flandelimon = false;
-                                break;
-                        }
-                    }while (opcion2 != 3);
-                    break;
-                case 3:
-                    System.out.println("Buenas noches");
-                    flandelimon = false;
-                    break;
+                }while (opcion2 != 3);
+            }else {
+                System.out.println("Cuenta o contraseña equivocadas");
             }
         }while (flandelimon);
     }

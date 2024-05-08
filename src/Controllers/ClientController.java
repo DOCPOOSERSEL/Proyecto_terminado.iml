@@ -26,30 +26,31 @@ public class ClientController {
                     TransactionController.transactionFuncion(loggedInAccount);
                 case 2: /*Aqui va todo lo de los clientes*/
                     do {
-                        MenuHolder.menuCreacionEdicionClient();
-                        indice = sc.nextInt();
-                        sc.nextLine();
-                    }while(indice > 4 || indice <=0);
-
-                    switch (indice) {//Crear o editar
-                        case 1:/*Crear un Usuario*/
-                            if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
-                                clientCreator();
-                            }else{
-                                System.out.println("Sin Autorizacion");
-                            }
-                            break;
-                        case 2:/*Editar un cliente*/
-                            if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin() == checkTrue){
-                                clientEditor(loggedInAccount);
-                            }else{
-                                System.out.println("Sin Autorizacion");
-                            }
-                            break;
-                        case 3:/*Aqui regresa al de clientes y transacciones*/
-                            System.out.println("Regressando al menu anterior");
-                            break;
-                    }
+                        do {
+                            MenuHolder.menuCreacionEdicionClient();
+                            indice = sc.nextInt();
+                            sc.nextLine();
+                        }while(indice > 3 || indice < 0);
+                        switch (indice) {//Crear o editar
+                            case 1:/*Crear un Usuario*/
+                                if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin()==checkTrue){
+                                    clientCreator();
+                                }else{
+                                    System.out.println("Sin Autorizacion");
+                                }
+                                break;
+                            case 2:/*Editar un cliente*/
+                                if(loggedInAccount.adminPermissions.contains(Permissions.WRITE) || loggedInAccount.getSuperAdmin() == checkTrue){
+                                    clientEditor(loggedInAccount);
+                                }else{
+                                    System.out.println("Sin Autorizacion");
+                                }
+                                break;
+                            case 3:/*Aqui regresa al de clientes y transacciones*/
+                                System.out.println("Regressando al menu anterior");
+                                break;
+                        }
+                    }while(indice != 3);
                     break;
                 case 3:/*Aqui te enseña los clientes con los libros que tienen*/
                     if (loggedInAccount.adminPermissions.contains(Permissions.READ)|| loggedInAccount.getSuperAdmin()==checkTrue){
@@ -88,6 +89,7 @@ public class ClientController {
         User newClient = new User();
         newClient.setProfileUser(Name,LastName,newdate,password);
         UserRepository.userArrayList.add(newClient);
+        UserRepository.generalArraylist.add(newClient);
     }
     public static void clientEditor(Admins loggedInAccount){
         int confirmacion;
@@ -144,6 +146,7 @@ public class ClientController {
                             case 4:
                                 if (loggedInAccount.adminPermissions.contains(Permissions.DELETE)|| loggedInAccount.getSuperAdmin()==checkTrue){
                                     if (UserRepository.userArrayList.get(indice2).borrowedBooks.isEmpty()){
+                                        UserRepository.generalArraylist.remove(UserRepository.userArrayList.get(indice2));
                                         UserRepository.userArrayList.remove(indice2);
                                         System.out.println("Cliente borrado con exito");
                                     }else{

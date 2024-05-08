@@ -10,9 +10,11 @@ public class Author {
     public void setProfileAuthorName(String name){
         profile.setName(name);
     }
+
     public void setProfileAuthorLastName(String name){
         profile.setApellido(name);
     }
+
     public void setProfileAuthoDate(Date birthday){
         profile.setFecha(birthday);
     }
